@@ -3,14 +3,14 @@ package com.merchez.heatercontrol.services;
 import java.util.List;
 import org.apache.commons.collections4.IteratorUtils;
 import com.merchez.heatercontrol.GenericRepository;
-import org.springframework.stereotype.Service;
+import org.springframework.beans.factory.annotation.Autowired;
 
-@Service
+
 public class GenericService<T> implements IGenericService<T> {
-	private final GenericRepository<T> repository;
+	@Autowired
+	private GenericRepository<T> repository;
 
-	public GenericService(GenericRepository<T> repository) {
-		this.repository = repository;
+	public GenericService() {
 	}
 
 	@Override

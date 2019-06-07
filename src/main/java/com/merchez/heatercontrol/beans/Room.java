@@ -12,6 +12,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import org.springframework.context.annotation.Primary;
+
 
 @Entity
 @Table(name="room")
@@ -27,11 +29,19 @@ public class Room {
 	@JsonManagedReference
 	@OneToMany(fetch = FetchType.LAZY, mappedBy="room")
     private List<Sensor> sensors;
-	
+
+    @JsonManagedReference
 	@OneToMany(fetch = FetchType.LAZY, mappedBy="room")
 	private List<Plug> plugs;
 
-	public Room(){
+    @Column(name="comfort_temperature")
+    private Integer comfortTemperature;
+
+    @Column(name="eco_temperature")
+    private Integer ecoTemperature;
+
+
+    public Room(){
     }
 
     public Room(String name) {
@@ -61,7 +71,23 @@ public class Room {
     public void setName(String name){
         this.name = name;
     }
-    
+
+    public Integer getComfortTemperature() {
+        return comfortTemperature;
+    }
+
+    public void setComfortTemperature(Integer comfortTemperature) {
+        this.comfortTemperature = comfortTemperature;
+    }
+
+    public Integer getEcoTemperature() {
+        return ecoTemperature;
+    }
+
+    public void setEcoTemperature(Integer ecoTemperature) {
+        this.ecoTemperature = ecoTemperature;
+    }
+
     public List<Sensor> getSensors(){
     	return this.sensors;
     }
@@ -69,4 +95,6 @@ public class Room {
     public List<Plug> getPlugs(){
     	return this.plugs;
     }
+
+
 }

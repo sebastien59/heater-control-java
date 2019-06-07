@@ -1,13 +1,7 @@
 package com.merchez.heatercontrol.beans;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.time.LocalTime;
 
 @Entity
 @Table(name="timeInterval")
@@ -15,34 +9,51 @@ public class TimeInterval {
 	@Id
 	@GeneratedValue( strategy = GenerationType.IDENTITY )
 	@Column(name="id")
-    private Integer id;
-	@Column(name="startingTime")
-    private String startingTime;
-	@Column(name="endingTime")
-    private String endingTime;
+    private Long id;
+	@Column(name="startingTime", columnDefinition = "TIME")
+    private LocalTime startingTime;
+	@Column(name="endingTime", columnDefinition = "TIME")
+    private LocalTime endingTime;
 	@Column(name="dayNumber")
     private Integer dayNumber;
 	@JoinColumn(name="room", referencedColumnName="id")
 	@ManyToOne
     private Room room;
 
-    public Integer getId() {
+	public TimeInterval(){}
+
+    public TimeInterval(long id, LocalTime startingTime, LocalTime endingTime, Integer dayNumber, Room room){
+        this.id = id;
+	    this.startingTime = startingTime;
+        this.endingTime = endingTime;
+        this.dayNumber = dayNumber;
+        this.room = room;
+    }
+
+    public TimeInterval(LocalTime startingTime, LocalTime endingTime, Integer dayNumber, Room room){
+        this.startingTime = startingTime;
+        this.endingTime = endingTime;
+        this.dayNumber = dayNumber;
+        this.room = room;
+    }
+
+    public Long getId() {
         return id;
     }
 
-    public String getStartingTime() {
+    public LocalTime getStartingTime() {
         return startingTime;
     }
 
-    public void setStartingTime(String startingTime) {
+    public void setStartingTime(LocalTime startingTime) {
         this.startingTime = startingTime;
     }
 
-    public String getEndingTime() {
+    public LocalTime getEndingTime() {
         return endingTime;
     }
 
-    public void setEndingTime(String endingTime) {
+    public void setEndingTime(LocalTime endingTime) {
         this.endingTime = endingTime;
     }
 

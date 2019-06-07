@@ -34,8 +34,9 @@ public class RoomController {
     }
 
     @RequestMapping(value={"/{id}"}, method=RequestMethod.PUT)
-    public void put_room(@RequestParam("id") long id, @RequestParam("name") String name ) {
-	    roomService.update(id, name);
+    public void put_room(@PathVariable("id") long id, @RequestParam("name") String name ) {
+	    Room room = new Room(id, name);
+	    roomService.save(room);
     }
 
     @RequestMapping(value="/{id}", method=RequestMethod.DELETE)
